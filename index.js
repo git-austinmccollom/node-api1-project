@@ -18,7 +18,11 @@ server.post("/api/users", (req, res) => {
   const data = req.body;
   if (data.name && data.bio) {
     const thisId = shortid.generate();
+    try {
     users.push({ id: thisId, ...data });
+    } catch (err) {
+        res.status(500).json({ errorMessage: "There was an error while saving the user to the database" })
+    }
     res.status(201).json({ data, users });
   } else {
     res.status(400).json({ errorMessage: "Please provide name and bio for the user."})
