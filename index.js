@@ -19,19 +19,44 @@ server.post("/api/users", (req, res) => {
   if (data.name && data.bio) {
     const thisId = shortid.generate();
     try {
-    users.push({ id: thisId, ...data });
+      users.push({ id: thisId, ...data });
     } catch (err) {
-        res.status(500).json({ errorMessage: "There was an error while saving the user to the database" })
+      res.status(500).json({
+        errorMessage:
+          "There was an error while saving the user to the database",
+      });
     }
     res.status(201).json({ data, users });
   } else {
-    res.status(400).json({ errorMessage: "Please provide name and bio for the user."})
+    res
+      .status(400)
+      .json({ errorMessage: "Please provide name and bio for the user." });
   }
 });
 
 // - GET
+server.get("/api/users/", (req, res) => {
+  try {
+    res.status(200).json({ data: users });
+  } catch (err) {
+    res
+      .status(500)
+      .json({ errorMessage: "The users information could not be retrieved." });
+  }
+});
 
 // - GET by id
+server.get("/api/users/:id", (req, res) => {
+  const id = req.params.id;
+  const user = users.find((u) => id === u.id);
+  if (user) {
+    res.status(200).json({ data: user });
+  } else {
+    res
+      .status(404)
+      .json({ message: "The user with the specified ID does not exist." });
+  }
+});
 
 // - DELETE
 
