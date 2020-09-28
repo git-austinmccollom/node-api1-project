@@ -1,0 +1,26 @@
+{
+  "name": "node-api1-project",
+  "version": "1.0.0",
+  "description": "## Introduction",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/git-austinmccollom/node-api1-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/git-austinmccollom/node-api1-project/issues"
+  },
+  "homepage": "https://github.com/git-austinmccollom/node-api1-project#readme",
+  "devDependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.4",
+    "short-id": "0.1.0-1"
+  }
+}
