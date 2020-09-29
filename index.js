@@ -61,10 +61,10 @@ server.get("/api/users/:id", (req, res) => {
 // - DELETE
 server.delete("/api/users/:id", (req, res) => {
   const id = req.params.id;
-  const user = users.find( u => id === u.id);
+  const user = users.find((u) => id === u.id);
   if (user) {
-    users = users.filter( u => id !== u.id )
-    res.status(200).json({ data: users })
+    users = users.filter((u) => id !== u.id);
+    res.status(200).json({ data: users });
   } else {
     res
       .status(404)
@@ -73,6 +73,36 @@ server.delete("/api/users/:id", (req, res) => {
 });
 
 // - PUT
+server.put("/api/users/:id", (req, res) => {
+  const data = req.body;
+
+  if (data.name && data.bio) {
+    const id = req.params.id;
+    const user = users.find((u) => id === u.id);
+    if (user) {
+      users = users.map((user) => {
+        if (user.id === id) {
+          return {
+            ...user,
+            name: data.name,
+            bio: data.bio,
+          };
+        } else {
+          return user;
+        }
+      });
+      res.status(200).json({ data: users });
+    } else {
+      res
+        .status(404)
+        .json({ message: "The user with the specified ID does not exist." });
+    }
+  } else {
+    res
+      .status(400)
+      .json({ errorMessage: "Please provide name and bio for the user." });
+  }
+});
 
 //footer
 const port = 5000;
