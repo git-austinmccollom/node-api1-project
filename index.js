@@ -9,7 +9,7 @@ server.get("/", (req, res) => {
 });
 
 // data
-const users = [];
+let users = [];
 
 //endpoints
 
@@ -59,6 +59,18 @@ server.get("/api/users/:id", (req, res) => {
 });
 
 // - DELETE
+server.delete("/api/users/:id", (req, res) => {
+  const id = req.params.id;
+  const user = users.find( u => id === u.id);
+  if (user) {
+    users = users.filter( u => id !== u.id )
+    res.status(200).json({ data: users })
+  } else {
+    res
+      .status(404)
+      .json({ message: "The user with the specified ID does not exist." });
+  }
+});
 
 // - PUT
 
